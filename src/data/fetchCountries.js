@@ -17,6 +17,7 @@ function columnDefs(response){
                 "field" : listOfKeys[i], 
                 filter: true, 
                 sortable: true, 
+                floatingFilter: true
             }
         )
     }
