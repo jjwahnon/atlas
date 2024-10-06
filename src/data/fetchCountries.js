@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Flag from '../components/Flag';
 
 function columnDefs(response){
     console.log(" column Defs input: ", response);
@@ -12,14 +13,28 @@ function columnDefs(response){
     console.log( "list of keys: ", listOfKeys);
     let columns=[];
     for (let i = 0; i < listOfKeys.length; i++){
-        columns.push(
-            {
-                "field" : listOfKeys[i], 
-                filter: true, 
-                sortable: true, 
-                floatingFilter: true
-            }
-        )
+        if(listOfKeys[i] === "flag"){
+            columns.push({
+                "field" : "flag", 
+                filter: false, 
+                sortable: false, 
+                floatingFilter: false, 
+                cellRenderer: (params) => (
+                    <Flag url={params.value} country={params.data.name}/>
+                ),
+            })
+        }
+        else{
+            columns.push(
+                {
+                    "field" : listOfKeys[i], 
+                    filter: true, 
+                    sortable: true, 
+                    floatingFilter: true
+                }
+        
+            )
+        }
     }
     return columns;
 }
