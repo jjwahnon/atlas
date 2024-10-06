@@ -14,7 +14,9 @@ function columnDefs(response){
     for (let i = 0; i < listOfKeys.length; i++){
         columns.push(
             {
-                "field" : listOfKeys[i]
+                "field" : listOfKeys[i], 
+                filter: true, 
+                sortable: true, 
             }
         )
     }
