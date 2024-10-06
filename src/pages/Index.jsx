@@ -6,6 +6,7 @@ import {AgGridReact} from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css"; 
 import "ag-grid-community/styles/ag-theme-quartz.css";
 
+
 class Index extends Component{
     constructor(){
         super();
@@ -16,18 +17,43 @@ class Index extends Component{
             selectedRows:[],
         }
     }
-    async componentDidMount(){
+    async componentDidMount(){ //fetches country on first mount to the DOM
         let countries = await fetchCountries();
         this.setState({
             columns: countries.keys,
             countries: countries.countries, 
             loading: false
         });
+        const savedCountries = localStorage.getItem('selectedRows');
+
+        if(savedCountries){
+            console.log("saved countries before parse: ", savedCountries);
+            this.setState({
+                selectedRows: JSON.parse(savedCountries)
+            });
+            console.log('Countries retrieved from localStorage:', JSON.parse(savedCountries));
+        }else{
+            console.log("no countries found in local storage");
+        }
+      
+    }
+
+    componentWillUnmount(){
+        localStorage.setItem('selectedRows', this.state.selectedRows);
     }
 
     onGridReady = (params) =>{
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
+
+        // Restore selection after grid is ready
+        if (this.state.selectedRows.length > 0) {
+            this.gridApi.forEachNode((node) => {
+                if (this.state.selectedRows.some(row => row.name === node.data.name)) {
+                    node.setSelected(true); // Select the node if it matches the saved selected rows
+                }
+            });
+        }
     };
 
     handleSelectionChanged = () =>{
@@ -38,8 +64,9 @@ class Index extends Component{
 
 
     render(){
-        const{loading, countries, columns}=this.state;
+        const{loading, countries, columns, selectedRows}=this.state;
         console.log("countries state: ", this.state.countries);
+        console.log("selected countries: ", selectedRows);
         if (!loading){
             return(
                 <div className="ag-theme-quartz" style={{height:800}}>
