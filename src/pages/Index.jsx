@@ -13,7 +13,7 @@ class Index extends Component{
             columns:[],
             countries:[],
             loading:true,
-
+            selectedRows:[],
         }
     }
     async componentDidMount(){
@@ -25,9 +25,20 @@ class Index extends Component{
         });
     }
 
+    onGridReady = (params) =>{
+        this.gridApi = params.api;
+        this.gridColumnApi = params.columnApi;
+    };
+
+    handleSelectionChanged = () =>{
+        const selectedRows = this.gridApi.getSelectedRows();
+        this.setState({ selectedRows });
+        console.log("selected rows: ", selectedRows);
+    }
+
 
     render(){
-        const{loading, countries, columns}=this.state;
+        const{loading, countries, columns, selectedRows}=this.state;
         console.log("countries state: ", this.state.countries);
         if (!loading){
             return(
@@ -38,6 +49,9 @@ class Index extends Component{
                         pagination={true} 
                         paginationPageSize={100} 
                         paginationPageSizeSelector={[100, 200, 300]}
+                        rowSelection={{mode:'multiRow', selectAll: 'filtered'}}
+                        onSelectionChanged={this.handleSelectionChanged}
+                        onGridReady={this.onGridReady}
                     />
                 </div>
             );
