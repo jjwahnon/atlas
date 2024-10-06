@@ -38,7 +38,7 @@ class Index extends Component{
 
 
     render(){
-        const{loading, countries, columns, selectedRows}=this.state;
+        const{loading, countries, columns}=this.state;
         console.log("countries state: ", this.state.countries);
         if (!loading){
             return(
