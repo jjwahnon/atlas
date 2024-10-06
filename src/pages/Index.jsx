@@ -13,7 +13,7 @@ class Index extends Component{
             columns:[],
             countries:[],
             loading:true,
-            selectedRow: null,
+
         }
     }
     async componentDidMount(){
@@ -25,15 +25,6 @@ class Index extends Component{
         });
     }
 
-    onRowSelected = (event) => {
-        const selectedRow = event.node.isSelected() ? event.data : null;
-        this.setState({selectedRow});
-    }; 
-
-    onRowSelectionChanged = (event) => {
-        const selectedRows = event.api.getSelectedRows();
-        this.setState({ selectedRow: selectedRows[0] });
-    };
 
     render(){
         const{loading, countries, columns}=this.state;
@@ -47,8 +38,6 @@ class Index extends Component{
                         pagination={true} 
                         paginationPageSize={100} 
                         paginationPageSizeSelector={[100, 200, 300]}
-                        onRowSelected={this.onRowSelected}
-                        onSelectionChanged={this.onRowSelectionChanged}
                     />
                 </div>
             );
