@@ -1,6 +1,13 @@
 import axios from 'axios';
 import Flag from '../components/Flag';
 
+function numberStringComparator(valA, valB){//for sorting number strings.
+    const A = parseInt(valA.replace(/,/g, ''), 10);
+    const B = parseInt(valB.replace(/,/g, ''), 10);
+    return A-B;
+}
+
+
 function columnDefs(response){
     console.log(" column Defs input: ", response);
     response=response.filter(
@@ -22,6 +29,13 @@ function columnDefs(response){
                 cellRenderer: (params) => (
                     <Flag url={params.value} country={params.data.name}/>
                 ),
+            })
+        }
+        else if(listOfKeys[i] === 'population'){
+            columns.push({
+                'field': 'population', 
+                filter: true, 
+                comparator: numberStringComparator,
             })
         }
         else{
@@ -59,7 +73,7 @@ function extractNameAndCurrency(country){
         }
       
         const flag = country.flags.svg;
-        const population = country.population;
+        const population = country.population.toLocaleString();
         console.log("country.languages", officialName+': '+country.languages);
         let languages;
         if(!country.languages){
