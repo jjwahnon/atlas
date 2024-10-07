@@ -34,17 +34,6 @@ class Index extends Component{
             countries: countries.countries, 
             loading: false
         });
-        const savedCountries = localStorage.getItem('selectedRows');
-
-        if(savedCountries){
-            console.log("saved countries before parse: ", savedCountries);
-            this.setState({
-                selectedRows: JSON.parse(savedCountries)
-            });
-            console.log('Countries retrieved from localStorage:', JSON.parse(savedCountries));
-        }else{
-            console.log("no countries found in local storage");
-        }
       
     }
 
