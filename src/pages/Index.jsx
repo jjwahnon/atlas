@@ -82,16 +82,16 @@ class Index extends Component{
         if (!loading){
             //console.log("selected country: ", selectedCountry.pop());
             return(
-                <div>
+                <div className="flex flex-col justify-center items-center space-y-4">
                     {
                         (selectedCountry[0])&&
-                            <div>
-                                <h1 className="text-3xl font-bold">The selected country is {selectedCountry[0]}</h1>
+                            <div className="border-2 rounded-lg border-blue-400 bg-blue-200 px-8 py-4">
+                                <h1 className="text-2xl font-bold">The selected country is {selectedCountry[0]}</h1>
                             </div>
                         
                     }
                 
-                    <div className="ag-theme-quartz" style={{height:800}}>
+                    <div className="ag-theme-quartz" style={{height:800, width:1300}}>
                         <AgGridReact 
                             rowData={countries} 
                             columnDefs={columns} 
