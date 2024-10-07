@@ -15,6 +15,7 @@ class Index extends Component{
             countries:[],
             loading:true,
             selectedRows:[],
+            selectedCountry:[]
         }
     }
     async componentDidMount(){ //fetches country on first mount to the DOM
@@ -58,28 +59,41 @@ class Index extends Component{
 
     handleSelectionChanged = () =>{
         const selectedRows = this.gridApi.getSelectedRows();
-        this.setState({ selectedRows });
+        const selectedCountry=selectedRows.map(country => country.name);
+        this.setState({ selectedRows, selectedCountry });
         console.log("selected rows: ", selectedRows);
+        console.log("Selected country names: ", selectedCountry);
     }
 
 
     render(){
-        const{loading, countries, columns, selectedRows}=this.state;
+        const{loading, countries, columns, selectedRows, selectedCountry}=this.state;
         console.log("countries state: ", this.state.countries);
         console.log("selected countries: ", selectedRows);
         if (!loading){
+            //console.log("selected country: ", selectedCountry.pop());
             return(
-                <div className="ag-theme-quartz" style={{height:800}}>
-                    <AgGridReact 
-                        rowData={countries} 
-                        columnDefs={columns} 
-                        pagination={true} 
-                        paginationPageSize={100} 
-                        paginationPageSizeSelector={[100, 200, 300]}
-                        rowSelection={{mode:'multiRow', selectAll: 'filtered'}}
-                        onSelectionChanged={this.handleSelectionChanged}
-                        onGridReady={this.onGridReady}
-                    />
+                <div>
+                    {
+                        (selectedCountry.length > 0 )&&
+                            <div>
+                                <h1>The selected country is {selectedCountry[0]}</h1>
+                            </div>
+                        
+                    }
+                
+                    <div className="ag-theme-quartz" style={{height:800}}>
+                        <AgGridReact 
+                            rowData={countries} 
+                            columnDefs={columns} 
+                            pagination={true} 
+                            paginationPageSize={100} 
+                            paginationPageSizeSelector={[100, 200, 300]}
+                            rowSelection={{mode:'singleRow', selectAll: 'filtered'}}
+                            onSelectionChanged={this.handleSelectionChanged}
+                            onGridReady={this.onGridReady}
+                        />
+                    </div>
                 </div>
             );
         }
