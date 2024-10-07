@@ -75,7 +75,7 @@ class Index extends Component{
             return(
                 <div>
                     {
-                        (selectedCountry.length > 0 )&&
+                        (selectedCountry[0])&&
                             <div>
                                 <h1>The selected country is {selectedCountry[0]}</h1>
                             </div>
