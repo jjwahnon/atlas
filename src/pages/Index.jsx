@@ -1,6 +1,7 @@
 /* eslint-disable no-this-before-super */
 import React, {Component} from 'react';
 import { fetchCountries } from '../data/fetchCountries';
+import { fetchCountry } from '../data/fetchCountry';
 
 import {AgGridReact} from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css"; 
@@ -18,6 +19,14 @@ class Index extends Component{
             selectedCountry:[]
         }
     }
+
+    async componentDidUpdate(prevProps, prevState){
+        if(prevState.selectedCountry !== this.state.selectedCountry && this.state.selectedCountry.length !== 0){
+            let data= await fetchCountry(this.state.selectedCountry[0]);
+            console.log("country data: ", data);
+        }
+    }
+
     async componentDidMount(){ //fetches country on first mount to the DOM
         let countries = await fetchCountries();
         this.setState({
@@ -77,7 +86,7 @@ class Index extends Component{
                     {
                         (selectedCountry[0])&&
                             <div>
-                                <h1>The selected country is {selectedCountry[0]}</h1>
+                                <h1 className="text-3xl font-bold">The selected country is {selectedCountry[0]}</h1>
                             </div>
                         
                     }

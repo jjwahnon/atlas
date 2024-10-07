@@ -38,6 +38,7 @@ function columnDefs(response){
                 comparator: numberStringComparator,
             })
         }
+   
         else{
             columns.push(
                 {
@@ -82,14 +83,17 @@ function extractNameAndCurrency(country){
         else{
             languages = Object.values(country.languages);
         }
+
+        const capital = country.capital;
         
 
         return{
             name: officialName, 
+            'capital city': capital,
             currency: currencyName, 
             flag: flag, 
             population: population, 
-            languages: languages
+            languages: languages,  
         }
     
 }
