@@ -10,6 +10,12 @@ function App() {
           <h1 className="text-3xl font-bold">Welcome to Atlas, a lookup app for all the countries in the world</h1>
         </div>
       </header>
+
+      <div className="flex flex-col border-2 border-blue-400 rounded-lg bg-blue-200 px-32 py-2">
+        <div className="flex items-center">
+          <h2 className="font-2xl font-semibold">Please select your favourite country to find out facts about it</h2>
+        </div>
+      </div>
       
       <div>
         <MainPage/>
