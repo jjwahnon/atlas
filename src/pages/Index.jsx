@@ -1,17 +1,18 @@
 /* eslint-disable no-this-before-super */
 import React, {Component} from 'react';
 import { fetchCountries } from '../data/fetchCountries';
-import { fetchCountry } from '../data/fetchCountry';
 
 import {AgGridReact} from 'ag-grid-react';
 import "ag-grid-community/styles/ag-grid.css"; 
 import "ag-grid-community/styles/ag-theme-quartz.css";
+import Flag from '../components/Flag';
 
 
 class Index extends Component{
     constructor(){
         super();
         const storedSelectedCountry = localStorage.getItem('selectedCountry');
+        console.log('local storage country: ')
         this.state={
             columns:[],
             countries:[],
@@ -38,7 +39,7 @@ class Index extends Component{
     }
 
     componentWillUnmount(){
-        localStorage.setItem('selectedRows', this.state.selectedRows);
+        localStorage.setItem('selectedCountry', this.state.selectedCountry);
     }
 
     onGridReady = (params) =>{
@@ -56,32 +57,43 @@ class Index extends Component{
     };
 
     handleSelectionChanged = () =>{
-        const selectedRows = this.gridApi.getSelectedRows();
-        const selectedCountry=selectedRows.map(country => country.name);
+        let selectedCountry = this.gridApi.getSelectedRows();
+        if(selectedCountry.length >0){
+            selectedCountry =selectedCountry.pop();
+        }
+ 
         this.setState({ 
-            selectedRows: selectedRows, 
-            selectedCountry: selectedCountry[0] 
+            selectedCountry: selectedCountry, 
         });
-        console.log("selected rows: ", selectedRows);
+        
         console.log("Selected country names: ", selectedCountry);
     }
 
 
     render(){
-        const{loading, countries, columns, selectedRows, selectedCountry}=this.state;
+        const{loading, countries, columns, selectedCountry}=this.state;
         console.log("countries state: ", this.state.countries);
-        console.log("selected countries: ", selectedRows);
+
         console.log("selected nation state: ", selectedCountry);
         if (!loading){
             //console.log("selected country: ", selectedCountry.pop());
             return(
                 <div className="flex flex-col justify-center items-center space-y-4">
                     {
-                        (selectedCountry)&&
-                            <div className="border-2 rounded-lg border-blue-400 bg-blue-200 px-8 py-4">
-                                <h1 className="text-2xl font-bold">The selected country is {selectedCountry}</h1>
+                   
+                        (selectedCountry)&&(
+                            <div className="border-2 rounded-lg border-blue-400 bg-blue-200 px-8 py-4 d-flex space-y-2">
+                                <h1 className="text-2xl font-bold">The selected country is {selectedCountry.name}</h1>
+                                <ul className="justify-center items-center">
+                                    <li>The capital city is <b>{selectedCountry['capital city']}</b>.</li>
+                                    <li>They have a population of <b>{selectedCountry.population}</b> people.</li>
+                                    <li>They use the <b>{selectedCountry.currency}</b> as their currency.</li>
+                                    <li>Their people speak <b>{selectedCountry.languages}</b>.</li>
+                                    <li>And their national flag is: <Flag url={selectedCountry.flag} country={selectedCountry.name}/></li>
+                                    
+                                </ul>
                             </div>
-                        
+                        )
                     }
                 
                     <div className="ag-theme-quartz" style={{height:800, width:1300}}>
