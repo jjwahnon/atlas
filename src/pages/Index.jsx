@@ -69,6 +69,9 @@ class Index extends Component{
         if(selectedCountry.length >0){
             selectedCountry =selectedCountry.pop();
         }
+        else{
+            selectedCountry = null
+        }
  
         this.setState({ 
             selectedCountry: selectedCountry, 
@@ -89,7 +92,7 @@ class Index extends Component{
                 <div className="flex flex-col justify-center items-center space-y-4">
                     {
                    
-                        (selectedCountry)&&(
+                        (selectedCountry )&&(
                             <div className="border-2 rounded-lg border-blue-400 bg-blue-200 px-8 py-4 d-flex space-y-2">
                                 <h1 className="text-2xl font-bold">The selected country is {selectedCountry.name}</h1>
                                 <ul className="justify-center items-center">
