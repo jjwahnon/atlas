@@ -102,9 +102,21 @@ class MainPage extends Component{
                                         (<li> There is no official capital city here</li>):
                                         (<li>The capital city is <b>{selectedCountry['capital city'][0]}</b>.</li>)
                                     }
-                                    <li>They have a population of <b>{selectedCountry.population}</b> people.</li>
-                                    <li>They use the <b>{selectedCountry.currency}</b> as their currency.</li>
-                                    <li>Their people speak <b>{selectedCountry.languages.length > 1?selectedCountry.languages.slice(0, -1).join(", ")+ " and "+selectedCountry.languages[selectedCountry.languages.length-1]:selectedCountry.languages[0]}</b>.</li>
+                                    <li>{selectedCountry.name} has a population of <b>{selectedCountry.population}</b> people.</li>
+                                    {selectedCountry.currency === "no official currency"?
+                                    (<li>{selectedCountry.name} has no official currency</li>)
+                                    :
+                                    (<li>{selectedCountry.name} uses the <b>{selectedCountry.currency}</b> as their currency.</li>)
+                                    }
+                                    
+                                    {selectedCountry.languages  ?
+                                        selectedCountry.languages.length > 1? 
+                                        (<li>Their official languages are <b>{selectedCountry.languages.slice(0, -1).join(", ")+ " and "+selectedCountry.languages[selectedCountry.languages.length-1]}</b></li>)
+                                        :
+                                        (<li>Their official language is <b>{selectedCountry.languages[0]}</b>.</li>)
+                                        :
+                                        (<li>{selectedCountry.name} <b>has no official languages</b></li>)
+                                    }
                                     <li>And their national flag is: <Flag url={selectedCountry.flag} country={selectedCountry.name}/></li>
                                     
                                 </ul>

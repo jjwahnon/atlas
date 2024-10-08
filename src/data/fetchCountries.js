@@ -78,7 +78,7 @@ function extractNameAndCurrency(country){
 
         let languages;
         if(!country.languages){
-            languages =  "no official langauges"
+            languages =  null;
         }
         else{
             languages = Object.values(country.languages);
