@@ -11,20 +11,28 @@ import Flag from '../components/Flag';
 class Index extends Component{
     constructor(){
         super();
-        const storedSelectedCountry = localStorage.getItem('selectedCountry');
-        console.log('local storage country: ')
+        let storedSelectedCountry;
+        try{
+            storedSelectedCountry = localStorage.getItem('selectedCountry');
+            storedSelectedCountry =JSON.parse(storedSelectedCountry);
+        }
+        catch(error){
+            storedSelectedCountry=null
+        }
+        console.log('local storage country: ', storedSelectedCountry);
+        console.log('local stroage country type: ', typeof(storedSelectedCountry));
         this.state={
             columns:[],
             countries:[],
             loading:true,
             selectedRows:[],
-            selectedCountry: storedSelectedCountry || null
+            selectedCountry: storedSelectedCountry
         }
     }
 
     async componentDidUpdate(prevProps, prevState){
         if(prevState.selectedCountry !== this.state.selectedCountry){
-            localStorage.setItem('selectedCountry', this.state.selectedCountry)
+            localStorage.setItem('selectedCountry', JSON.stringify(this.state.selectedCountry));
         }
     }
 
@@ -66,13 +74,13 @@ class Index extends Component{
             selectedCountry: selectedCountry, 
         });
         
-        console.log("Selected country names: ", selectedCountry);
+
     }
 
 
     render(){
         const{loading, countries, columns, selectedCountry}=this.state;
-        console.log("countries state: ", this.state.countries);
+
 
         console.log("selected nation state: ", selectedCountry);
         if (!loading){

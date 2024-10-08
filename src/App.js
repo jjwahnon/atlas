@@ -10,11 +10,11 @@ function App() {
           <h1 className="text-3xl font-bold">Welcome to Atlas, a lookup app for all the countries in the world</h1>
         </div>
       </header>
-      <body>
-        <div>
-          <Index/>
-        </div>
-      </body>
+      
+      <div>
+        <Index/>
+      </div>
+      
       <footer className="border-2 border-blue-400 rounded-lg py-6 bg-blue-200 px-4" >
         <div className="flex flex-row">
           <img src={logo} alt="react-logo" height="50" width="50"/>
