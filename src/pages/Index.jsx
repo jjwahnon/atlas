@@ -97,7 +97,7 @@ class Index extends Component{
                                 <h1 className="text-2xl font-bold">The selected country is {selectedCountry.name}</h1>
                                 <ul className="justify-center items-center">
                                     {(selectedCountry['capital city'] && selectedCountry['capital city'].length>1)?
-                                        (<li>Their capital cities are: <b>{selectedCountry['capital city'].slice(0, -1).join(" , ") + " and "+selectedCountry['capital city'][selectedCountry['capital city'].length-1]}</b></li>):
+                                        (<li>Their capital cities are: <b>{selectedCountry['capital city'].slice(0, -1).join(" , ") + ", and "+selectedCountry['capital city'][selectedCountry['capital city'].length-1]}</b></li>):
                                         (!selectedCountry['capital city'])?
                                         (<li> There is no official capital city here</li>):
                                         (<li>The capital city is <b>{selectedCountry['capital city'][0]}</b>.</li>)
