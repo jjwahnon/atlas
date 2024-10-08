@@ -1,5 +1,5 @@
 import './App.css';
-import Index from './pages/Index';
+import MainPage from './pages/MainPage';
 import logo from './logo.svg';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
       </header>
       
       <div>
-        <Index/>
+        <MainPage/>
       </div>
       
       <footer className="border-2 border-blue-400 rounded-lg py-6 bg-blue-200 px-4" >

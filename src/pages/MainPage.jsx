@@ -8,7 +8,7 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 import Flag from '../components/Flag';
 
 
-class Index extends Component{
+class MainPage extends Component{
     constructor(){
         super();
         let storedSelectedCountry;
@@ -131,4 +131,4 @@ class Index extends Component{
     }
 }
 
-export default Index;
+export default MainPage;
